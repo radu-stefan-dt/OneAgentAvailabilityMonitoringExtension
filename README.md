@@ -23,3 +23,5 @@ Setup requires:
 * API Token - token with event and oneagents permissions for the Tenant
 * ActiveGate - Environment ActiveGate enabled for running plugins
 ![Plugin Setup](https://github.com/radustefandynatrace/OneAgentAvailabilityMonitoringExtension/blob/master/imgs/plugin.PNG)
+
+Running this extension does not require any custom metrics as it doesn't report any metrics into Dynatrace.
