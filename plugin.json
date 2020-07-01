@@ -1,0 +1,44 @@
+{
+    "name": "custom.remote.python.oneagent_availability_monitor",
+    "version": "1.0",
+    "type": "python",
+    "entity": "CUSTOM_DEVICE",
+    "technologies": ["Availability Monitor"],
+    "metricGroup": "tech.Availability",
+    "source": {
+        "package": "AvailabilityMonitor",
+        "className": "PluginMain",
+        "install_requires": [
+            "requests>=2.6.0"
+        ],
+        "activation": "Remote"
+    },
+    "metrics": [
+
+    ],
+    "properties": [
+        {
+            "key": "api_token",
+            "type": "String"
+        },
+        {
+            "key": "tenant_id",
+            "type": "String"
+        }
+    ],
+    "configUI": {
+        "displayName": "OneAgent Availability Monitor",
+        "properties": [
+            {
+                "key": "api_token",
+                "displayName": "API Token"
+            },
+            {
+                "key": "tenant_id",
+                "displayName": "Tenant ID"
+            }
+        ]
+    },
+    "ui": {
+    }
+}
