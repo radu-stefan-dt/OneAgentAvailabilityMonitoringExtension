@@ -1,6 +1,6 @@
 {
     "name": "custom.remote.python.oneagent_availability_monitor",
-    "version": "1.0",
+    "version": "1.1",
     "type": "python",
     "entity": "CUSTOM_DEVICE",
     "technologies": ["Availability Monitor"],
@@ -19,11 +19,30 @@
     "properties": [
         {
             "key": "api_token",
-            "type": "String"
+            "type": "password"
         },
         {
             "key": "tenant_id",
             "type": "String"
+        },
+        {
+            "key": "timeframe",
+            "type": "dropdown",
+            "defaultValue": "day",
+            "dropdownValues": [
+                "min",
+                "5mins",
+                "10mins",
+                "15mins",
+                "30mins",
+                "hour",
+                "2hours",
+                "6hours",
+                "day",
+                "3days",
+                "week",
+                "month"
+            ]
         }
     ],
     "configUI": {
@@ -36,6 +55,10 @@
             {
                 "key": "tenant_id",
                 "displayName": "Tenant ID"
+            },
+            {
+                "key": "timeframe",
+                "displayName": "Timeframe"
             }
         ]
     },

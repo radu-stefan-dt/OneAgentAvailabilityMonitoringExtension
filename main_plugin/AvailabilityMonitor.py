@@ -11,6 +11,7 @@ class PluginMain(RemoteBasePlugin):
         logger.info(f"Using config: {self.config}")
         self.token = self.config.get('api_token')
         self.tenant = self.config.get('tenant_id')
+        self.timeframe = self.config.get('timeframe')
 
     def query(self, **kwargs):
         env_api = f"https://{self.tenant}.live.dynatrace.com/api/v1"
@@ -23,7 +24,7 @@ class PluginMain(RemoteBasePlugin):
         logger.info("Parsing tenant")
         # Loop until whole tenant was parsed in case there's more than 1 page of results
         while nextPageKey:
-            query = f"?relativeTime=hour&availabilityState=UNMONITORED"
+            query = f"?relativeTime={self.timeframe}&availabilityState=UNMONITORED"
             if nextPageKey != 1:
                 query += f"?{nextPageKey}"
 
