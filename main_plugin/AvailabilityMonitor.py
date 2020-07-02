@@ -42,7 +42,7 @@ class PluginMain(RemoteBasePlugin):
             logger.info("Sending an event.")
             for host in hosts:
                 event = dict(eventType="AVAILABILITY_EVENT",
-                             start=round(time())/1000,
+                             start=round(time())*1000,
                              timeoutMinutes=5,
                              attachRules=dict(entityIds=[host]),
                              description="Host detected as Unmonitored",

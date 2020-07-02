@@ -24,7 +24,7 @@ class PluginMain(RemoteBasePlugin):
         logger.info("Parsing tenant")
         # Loop until whole tenant was parsed in case there's more than 1 page of results
         while nextPageKey:
-            query = f"?relativeTime={self.timeframe}&availabilityState=UNMONITORED"
+            query = f"?relativeTime={self.timeframe}"
             if nextPageKey != 1:
                 query += f"?{nextPageKey}"
 
@@ -33,7 +33,11 @@ class PluginMain(RemoteBasePlugin):
 
             if len(response.get('hosts')) > 0:
                 for host in response.get('hosts'):
-                    hosts.append(host.get('hostInfo').get('entityId'))
+                    host_id = host.get('hostInfo').get('entityId')
+                    host_state = host.get('availabilityState')
+
+                    if host_state != "MONITORED":
+                        hosts.append(dict(id=host_id,state=host_state))
 
             nextPageKey = response.get('nextPageKey')
 
@@ -42,13 +46,14 @@ class PluginMain(RemoteBasePlugin):
             logger.info("Sending an event.")
             for host in hosts:
                 event = dict(eventType="AVAILABILITY_EVENT",
-                             start=round(time())/1000,
+                             start=round(time())*1000,
                              timeoutMinutes=5,
-                             attachRules=dict(entityIds=[host]),
-                             description="Host detected as Unmonitored",
-                             title="Host state changed to Unmonitored",
+                             attachRules=dict(entityIds=[host.get('id')]),
+                             description=f"Host state was detected as being {host.get('state')}",
+                             title=f"Host state changed to {host.get('state')}",
                              source="OneAgent Availability Monitor"
                              )
+                logger.info("EventPayload: "+str(event))
                 requests.post(url=env_api+"/events", json=event, headers=auth)
         else:
             logger.info("No events to push.")
