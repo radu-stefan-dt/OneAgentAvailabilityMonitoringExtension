@@ -1,0 +1,315 @@
+{
+    "name": "custom.remote.python.oneagent_availability_monitor",
+    "version": "2.0",
+    "type": "python",
+    "entity": "CUSTOM_DEVICE",
+    "technologies": ["Availability Monitor"],
+    "metricGroup": "tech.Availability",
+    "source": {
+        "package": "AvailabilityMonitor",
+        "className": "PluginMain",
+        "install_requires": [
+            "requests>=2.6.0"
+        ],
+        "activation": "Remote"
+    },
+    "metrics": [
+        {
+            "entity": "CUSTOM_DEVICE",
+            "timeseries": {
+                "key": "unmonitored",
+                "unit": "Count",
+                "aggregation": "MAX",
+                "displayname": "Unmonitored"
+            }
+        },
+        {
+            "entity": "CUSTOM_DEVICE",
+            "timeseries": {
+                "key": "shutdown",
+                "unit": "Count",
+                "aggregation": "MAX",
+                "displayname": "Shutdown"
+            }
+        },
+        {
+            "entity": "CUSTOM_DEVICE",
+            "timeseries": {
+                "key": "crashed",
+                "unit": "Count",
+                "aggregation": "MAX",
+                "displayname": "Crashed"
+            }
+        },
+        {
+            "entity": "CUSTOM_DEVICE",
+            "timeseries": {
+                "key": "lost",
+                "unit": "Count",
+                "aggregation": "MAX",
+                "displayname": "Lost"
+            }
+        },
+        {
+            "entity": "CUSTOM_DEVICE",
+            "timeseries": {
+                "key": "pre_monitored",
+                "unit": "Count",
+                "aggregation": "MAX",
+                "displayname": "Pre-Monitored"
+            }
+        },
+        {
+            "entity": "CUSTOM_DEVICE",
+            "timeseries": {
+                "key": "unexpected_shutdown",
+                "unit": "Count",
+                "aggregation": "MAX",
+                "displayname": "Unexpected Shutdown"
+            }
+        },
+        {
+            "entity": "CUSTOM_DEVICE",
+            "timeseries": {
+                "key": "unknown",
+                "unit": "Count",
+                "aggregation": "MAX",
+                "displayname": "Unknown"
+            }
+        },
+        {
+            "entity": "CUSTOM_DEVICE",
+            "timeseries": {
+                "key": "non-monitored",
+                "unit": "Count",
+                "aggregation": "MAX",
+                "displayname": "Not Monitored"
+            }
+        }
+    ],
+    "properties": [
+        {
+            "key": "api_token",
+            "type": "password"
+        },
+        {
+            "key": "tenant_id",
+            "type": "String"
+        },
+        {
+            "key": "timeframe",
+            "type": "dropdown",
+            "defaultValue": "day",
+            "dropdownValues": [
+                "min",
+                "5mins",
+                "10mins",
+                "15mins",
+                "30mins",
+                "hour",
+                "2hours",
+                "6hours",
+                "day",
+                "3days",
+                "week",
+                "month"
+            ]
+        }
+    ],
+    "configUI": {
+        "displayName": "OneAgent Availability Monitor",
+        "properties": [
+            {
+                "key": "api_token",
+                "displayName": "API Token"
+            },
+            {
+                "key": "tenant_id",
+                "displayName": "Tenant ID"
+            },
+            {
+                "key": "timeframe",
+                "displayName": "Timeframe"
+            }
+        ]
+    },
+    "ui": {
+        "keymetrics": [
+            {
+                "key": "non-monitored",
+                "aggregation": "MAX",
+                "mergeaggregation": "SUM",
+                "displayname": "Not Monitored"
+            }
+        ],
+        "keycharts": [
+            {
+                "group": "Aggregated State Report",
+                "title": "Non-Monitored Hosts Overview",
+                "series": [
+                    {
+                        "key": "non-monitored",
+                        "displayname": "Not Monitored",
+                        "aggregation": "MAX",
+                        "seriestype": "area"
+                    }
+                ]
+            },
+            {
+                "group": "Aggregated State Report",
+                "title": "Non-Monitored Hosts Breakdown",
+                "series": [
+                    {
+                        "key": "crashed",
+                        "displayname": "Crashed",
+                        "aggregation": "MAX",
+                        "color": "#E50000",
+                        "seriestype": "area",
+                        "stacked": true
+                    },
+                    {
+                        "key": "lost",
+                        "displayname": "Lost",
+                        "aggregation": "MAX",
+                        "color": "#FF8000",
+                        "seriestype": "area",
+                        "stacked": true
+                    },
+                    {
+                        "key": "unknown",
+                        "displayname": "Unknown",
+                        "aggregation": "MAX",
+                        "color": "#666666",
+                        "seriestype": "area",
+                        "stacked": true
+                    },
+                    {
+                        "key": "unmonitored",
+                        "displayname": "Unmonitored",
+                        "aggregation": "MAX",
+                        "color": "#FFC100",
+                        "seriestype": "area",
+                        "stacked": true
+                    },
+                    {
+                        "key": "shutdown",
+                        "displayname": "Shutdown",
+                        "aggregation": "MAX",
+                        "color": "#333333",
+                        "seriestype": "area",
+                        "stacked": true
+                    },
+                    {
+                        "key": "unexpected_shutdown",
+                        "displayname": "Unexpected Shutdown",
+                        "aggregation": "MAX",
+                        "color": "#B2006D",
+                        "seriestype": "area",
+                        "stacked": true
+                    },
+                    {
+                        "key": "pre_monitored",
+                        "displayname": "Pre-Monitored",
+                        "aggregation": "MAX",
+                        "color": "#99CC99",
+                        "seriestype": "area",
+                        "stacked": true
+                    }
+                ]
+            }
+        ],
+        "charts": [
+            {
+                "group": "Host State Breakdown",
+                "title": "Unmonitored Hosts",
+                "series": [
+                    {
+                        "key": "unmonitored",
+                        "displayname": "Unmonitored",
+                        "aggregation": "MAX",
+                        "color": "#FFC100",
+                        "seriestype": "area"
+                    }
+                ]
+            },
+            {
+                "group": "Host State Breakdown",
+                "title": "Shutdown Hosts",
+                "series": [
+                    {
+                        "key": "shutdown",
+                        "displayname": "Shutdown",
+                        "aggregation": "MAX",
+                        "color": "#333333",
+                        "seriestype": "area"
+                    }
+                ]
+            },
+            {
+                "group": "Host State Breakdown",
+                "title": "Unexpected Shutdown Hosts",
+                "series": [
+                    {
+                        "key": "unexpected_shutdown",
+                        "displayname": "Unexpected Shutdown",
+                        "aggregation": "MAX",
+                        "color": "#B2006D",
+                        "seriestype": "area"
+                    }
+                ]
+            },
+            {
+                "group": "Host State Breakdown",
+                "title": "Lost Hosts",
+                "series": [
+                    {
+                        "key": "lost",
+                        "displayname": "Lost",
+                        "aggregation": "MAX",
+                        "color": "#FF8000",
+                        "seriestype": "area"
+                    }
+                ]
+            },
+            {
+                "group": "Host State Breakdown",
+                "title": "Unknown Hosts",
+                "series": [
+                    {
+                        "key": "unknown",
+                        "displayname": "Unknown",
+                        "aggregation": "MAX",
+                        "color": "#666666",
+                        "seriestype": "area"
+                    }
+                ]
+            },
+            {
+                "group": "Host State Breakdown",
+                "title": "Crashed Hosts",
+                "series": [
+                    {
+                        "key": "crashed",
+                        "displayname": "Crashed",
+                        "aggregation": "MAX",
+                        "color": "#E50000",
+                        "seriestype": "area"
+                    }
+                ]
+            },
+            {
+                "group": "Host State Breakdown",
+                "title": "Pre-Monitored Hosts",
+                "series": [
+                    {
+                        "key": "pre_monitored",
+                        "displayname": "Pre-Monitored",
+                        "aggregation": "MAX",
+                        "color": "#99CC99",
+                        "seriestype": "area"
+                    }
+                ]
+            }
+        ]
+    }
+}
