@@ -41,13 +41,13 @@ class PluginMain(RemoteBasePlugin):
 
             nextPageKey = response.get('nextPageKey')
         
-        unmonitored = len([_ for _ in hosts if _.state == "UNMONITORED" ])
-        crashed = len([_ for _ in hosts if _.state == "CRASHED" ])
-        shutdown = len([_ for _ in hosts if _.state == "SHUTDOWN" ])
-        unexpected = len([_ for _ in hosts if _.state == "UNEXPECTED_SHUTDOWN" ])
-        unknown = len([_ for _ in hosts if _.state == "UNKNOWN" ])
-        lost = len([_ for _ in hosts if _.state == "LOST" ])
-        pre = len([_ for _ in hosts if _.state == "PRE_MONITORED" ])
+        unmonitored = len([x for x in hosts if x.get('state') == "UNMONITORED" ])
+        crashed = len([x for x in hosts if x.get('state') == "CRASHED" ])
+        shutdown = len([x for x in hosts if x.get('state') == "SHUTDOWN" ])
+        unexpected = len([x for x in hosts if x.get('state') == "UNEXPECTED_SHUTDOWN" ])
+        unknown = len([x for x in hosts if x.get('state') == "UNKNOWN" ])
+        lost = len([x for x in hosts if x.get('state') == "LOST" ])
+        pre = len([x for x in hosts if x.get('state') == "PRE_MONITORED" ])
         non_monitored = len(hosts)
 
         device_group = self.topology_builder.create_group("OneAgent Availability Monitors", "OneAgent Availability Monitors")
@@ -59,5 +59,5 @@ class PluginMain(RemoteBasePlugin):
         device.absolute(key="unknown", value=unknown)
         device.absolute(key="lost", value=lost)
         device.absolute(key="pre_monitored", value=pre)
-        device.absolute(key="non_monitored", value=non_monitored)
+        device.absolute(key="non-monitored", value=non_monitored)
         device.absolute(key="shutdown", value=shutdown)

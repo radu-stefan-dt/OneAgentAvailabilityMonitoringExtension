@@ -1,6 +1,6 @@
 {
     "name": "custom.remote.python.oneagent_availability_monitor",
-    "version": "2.0",
+    "version": "2.1",
     "type": "python",
     "entity": "CUSTOM_DEVICE",
     "technologies": ["Availability Monitor"],
