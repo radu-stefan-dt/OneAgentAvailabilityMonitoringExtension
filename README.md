@@ -4,9 +4,12 @@ An ActiveGate Extension for Dynatrace which is intended to provide alerting for 
 # Repository structure
 * /main_plugin/
    * This is the main plugin that only alerts on Unmonitored state
+   * [Check it out](https://github.com/radu-stefan-dt/OneAgentAvailabilityMonitoringExtension/blob/master/main_plugin/README.md)
 * /all-states_variant
    * This is a version of the main plugin that alerts on all states (anything except for Monitored)
+   * [Check it out](https://github.com/radu-stefan-dt/OneAgentAvailabilityMonitoringExtension/blob/master/all-states_variant/README.md)
 * /reporting_variant
    * This is a version of the main plugin which uses metrics to track state changes over time
    * This version does not send out alert events
+   * [Check it out](https://github.com/radu-stefan-dt/OneAgentAvailabilityMonitoringExtension/blob/master/reporting_variant/README.md)
    
