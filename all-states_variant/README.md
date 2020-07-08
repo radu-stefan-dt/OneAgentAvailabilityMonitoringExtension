@@ -7,3 +7,5 @@ It works the exact same way as the main plugin in that
   * and events will fire off to each host with an expiration period of 5 minutes
 
 However, the difference is that Availabilty Events will be created for any host state other than Monitored.
+
+![Problem cards](https://github.com/radu-stefan-dt/OneAgentAvailabilityMonitoringExtension/blob/master/imgs/problem_cards.PNG)
