@@ -46,7 +46,7 @@ class PluginMain(RemoteBasePlugin):
             logger.info("Sending an event.")
             for host in hosts:
                 event = dict(eventType="AVAILABILITY_EVENT",
-                             start=round(time())*1000,
+                             start=round(time()*1000),
                              timeoutMinutes=5,
                              attachRules=dict(entityIds=[host.get('id')]),
                              description=f"Host state was detected as being {host.get('state')}",
@@ -54,6 +54,8 @@ class PluginMain(RemoteBasePlugin):
                              source="OneAgent Availability Monitor"
                              )
                 logger.info("EventPayload: "+str(event))
-                requests.post(url=env_api+"/events", json=event, headers=auth)
+                r = requests.post(url=env_api+"/events", json=event, headers=auth)
+                if r.status_code != 200:
+                    logger.error("Unsuccessful: "+str(r.json()))
         else:
             logger.info("No events to push.")
