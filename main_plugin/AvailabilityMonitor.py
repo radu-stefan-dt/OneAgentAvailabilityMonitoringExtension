@@ -26,7 +26,7 @@ class PluginMain(RemoteBasePlugin):
         while nextPageKey:
             query = f"?relativeTime={self.timeframe}&availabilityState=UNMONITORED"
             if nextPageKey != 1:
-                query += f"?{nextPageKey}"
+                query += f"&nextPageKey={nextPageKey}"
 
             response = requests.get(
                 url=env_api+"/oneagents"+query, headers=auth).json()
